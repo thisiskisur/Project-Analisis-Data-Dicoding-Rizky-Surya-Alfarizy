@@ -13,30 +13,30 @@ st.title('Bike Sharing Dashboard 🚲')
 
 # Load Data
 def load_data():
-    data = pd.read_csv("../dashboard/day_fixed.csv")
+    data = pd.read_csv("dashboard/day_fixed.csv")
     return data
 
-days_df = load_data()
+day_df = load_data()
 
 # Filter Date Under Raw Data in Sidebar
 st.sidebar.subheader('Filter Data')
-min_date = pd.to_datetime(days_df['dteday'].min())
-max_date = pd.to_datetime(days_df['dteday'].max())
+min_date = pd.to_datetime(day_df['dteday'].min())
+max_date = pd.to_datetime(day_df['dteday'].max())
 date_range = st.sidebar.date_input("Date Range", value=(min_date, max_date))
 start_date = pd.to_datetime(date_range[0])
 end_date = pd.to_datetime(date_range[1])
 
 # Filter Data Based on Date
-filtered_df = days_df[(pd.to_datetime(days_df['dteday']) >= start_date) & (pd.to_datetime(days_df['dteday']) <= end_date)]
+filtered_df = day_df[(pd.to_datetime(day_df['dteday']) >= start_date) & (pd.to_datetime(day_df['dteday']) <= end_date)]
 
 # Statistical Total Bike Sharing per Month
 st.subheader('👉 Statistical Total Bike Sharing per Month')
 
 # Extracting month from 'dteday' column and shortening month names to 3 letters
-days_df['month'] = pd.to_datetime(days_df['dteday']).dt.month_name().str.slice(stop=3)
+day_df['month'] = pd.to_datetime(day_df['dteday']).dt.month_name().str.slice(stop=3)
 
 # Calculating total bike sharing per month
-total_bike_sharing_per_month = days_df.groupby('month')['cnt'].sum()
+total_bike_sharing_per_month = da_df.groupby('month')['cnt'].sum()
 
 # Creating a line plot
 fig, ax = plt.subplots(figsize=(10, 6))
@@ -51,7 +51,7 @@ plt.grid(True)
 st.pyplot(fig)
 
 # Total Bike Sharing
-total_bike_sharing = days_df['cnt'].sum()
+total_bike_sharing = day_df['cnt'].sum()
 st.write(f"Total Bike Sharing: {total_bike_sharing}")
 
 # Display Filtered Data
