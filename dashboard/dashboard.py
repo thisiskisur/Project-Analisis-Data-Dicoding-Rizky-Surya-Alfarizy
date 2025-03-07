@@ -13,7 +13,7 @@ st.title('Bike Sharing Dashboard 🚲')
 
 # Load Data
 def load_data():
-    data = pd.read_csv("../dashboard/day_fixed.csv")
+    data = pd.read_csv("day_fixed.csv")
     return data
 
 days_df = load_data()
